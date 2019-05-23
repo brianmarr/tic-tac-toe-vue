@@ -4,7 +4,7 @@ tic-tac-toe-vue
 '''''''
 
 Created by Brian Marr 
-A basic tic-tac-toe game created for Abyss Solution's coding interview stage.
+A basic tic-tac-toe game
 Uses Vue CLI 3 with the Vuetify.js plugin.
 23/05/2019
 
