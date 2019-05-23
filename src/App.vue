@@ -1,31 +1,50 @@
+
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app class="grey lighten-5">
+    <app-menubar @startNewGame="startNewGame($event)"></app-menubar>
+    <v-content>
+      <app-game :gameParams="gameParams" v-if="this.gameStarted"></app-game>
+    </v-content>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<script>
+import MenuBar from "./components/MenuBar";
+import Game from "./components/Game";
+
+export default {
+  name: "App",
+  components: {
+    "app-menubar": MenuBar,
+    "app-game": Game
+  },
+  data() {
+    return {
+      gameParams: null,
+      /*
+      versusPlayer: null,
+      opponentType: null,
+      */
+      gameStarted: false
+    };
+  },
+  methods: {
+    // Receive event emit from child (MenuBar)
+    startNewGame(gameParams) {
+      this.gameParams = gameParams;
+      /*
+      this.versusPlayer = emitParams.versusPlayer;
+      this.playerName = emitParams.playerName;
+      this.oppName = emitParams.oppName;
+      */
+      // 5ms timer exists to time for page to read 'this.gameStarted = false', so that game can properly reset
+      this.gameStarted = false;
+      setTimeout(() => {
+        this.gameStarted = true;
+      }, 5);
+    }
+  }
+};
+</script>
